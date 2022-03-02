@@ -16,15 +16,12 @@ import LinearGradient from 'react-native-linear-gradient';
 
 
 
-export default function LoginScreen2() {
+export default function LoginScreen2(props) {
 
     const [isEnabled, setIsEnabled] = useState(false);
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
-    useEffect(() => {
     
-        StatusBar.setBarStyle('light-content', true);
-    }, []);
 
     return (
         <TouchableWithoutFeedback
@@ -94,13 +91,15 @@ export default function LoginScreen2() {
                 {/* <TouchableOpacity style={styles.loginButton}>
           <Text style={styles.loginButtonText}>Sign in</Text>
         </TouchableOpacity> */}
-                <LinearGradient
+        <TouchableOpacity onPress={()=>  props.navigation.navigate("home")}>
+                <LinearGradient  start={{x: 0, y: 0}} end={{x: 1, y: 0}}
                     colors={['#FF7474', '#E20303']}
-                    style={styles.linearGradient}>
+                    style={styles.linearGradient} >
                     <Text style={styles.loginButtonText}>
                         Sign In
                     </Text>
                 </LinearGradient>
+                </TouchableOpacity>
                 <View style={styles.loginWithBar}>
                     <TouchableOpacity>
 
@@ -114,7 +113,7 @@ export default function LoginScreen2() {
                 </View>
                 <View style={styles.signUpTextView}>
                     <Text style={styles.signUpText}>Don't have an account?</Text>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={()=> props.navigation.navigate("signup")}>
                         <Text style={[styles.signUpText, { color: '#00A8FF' }]}>
                             {' Sign Up'}
                         </Text>
