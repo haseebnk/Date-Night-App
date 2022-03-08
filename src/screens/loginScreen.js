@@ -48,7 +48,7 @@ export default function LoginScreen2(props) {
                         style={styles.ImageStyle}
                     />
                     <TextInput
-                        style={{ flex: 1, color: 'white', }}
+                        style={{ flex: 1, color: 'white', fontSize: 16, fontFamily: "Poppins-Regular", marginTop :8 }}
 
                         placeholder='Email'
                         placeholderTextColor='white'
@@ -65,7 +65,7 @@ export default function LoginScreen2(props) {
                         style={styles.ImageStyle}
                     />
                     <TextInput
-                        style={{ flex: 1, color: 'white', }}
+                        style={{ flex: 1, color: 'white', fontSize: 16, fontFamily: "Poppins-Regular", marginTop: 8 }}
                         placeholder="Password"
                         placeholderTextColor='white'
                         secureTextEntry={true}
@@ -85,8 +85,8 @@ export default function LoginScreen2(props) {
                         />
 
                     </View>
-                    <Text style={{ color: 'white', fontSize: 12, marginLeft: 50, marginTop: 4, }}>Remember</Text>
-                    <Text style={styles.fpText}>Forgot Password?</Text>
+                    <Text style={{ color: 'white', fontSize: 12, marginLeft: 50, marginTop: 4, fontFamily: "Poppins-Regular", }}>Remember</Text>
+                    <Text style={styles.fpText} onPress={() => props.navigation.navigate("forgotpassword")}>Forgot Password?</Text>
                 </TouchableOpacity>
                 {/* <TouchableOpacity style={styles.loginButton}>
           <Text style={styles.loginButtonText}>Sign in</Text>
@@ -136,8 +136,8 @@ const styles = StyleSheet.create({
         height: 48,
     },
     buttonText: {
-        fontSize: 18,
-        fontFamily: 'Gill Sans',
+        fontSize: 16,
+        fontFamily: "Poppins-Regular",
         textAlign: 'center',
         margin: 10,
         color: '#ffffff',
@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
         marginRight: 40,
         fontSize: 16,
         width: '95%',
-        height: 70,
+        height: 76,
 
         margin: 10,
     },
@@ -209,6 +209,7 @@ const styles = StyleSheet.create({
     loginText: {
         color: '#fff',
         fontSize: 20,
+        fontFamily: "Poppins-Regular",
 
 
         marginTop: 20,
@@ -228,8 +229,9 @@ const styles = StyleSheet.create({
     fpText: {
         alignSelf: 'flex-end',
         color: '#00A8FF',
-        fontSize: 14,
-        fontWeight: '500',
+        fontSize: 12,
+        fontFamily: "Poppins-Regular",
+      
         marginTop: -17,
         // marginBottom:50,
     },
@@ -242,7 +244,7 @@ const styles = StyleSheet.create({
     },
     loginButtonText: {
         fontSize: 16,
-        fontWeight: '500',
+        fontFamily: "Poppins-Regular",
         color: '#fafafa',
         alignSelf: 'center',
     },
@@ -264,6 +266,6 @@ const styles = StyleSheet.create({
     signUpText: {
         color: '#ffff',
         fontSize: 16,
-        fontWeight: '500',
+        fontFamily: "Poppins-Regular",
     },
 });

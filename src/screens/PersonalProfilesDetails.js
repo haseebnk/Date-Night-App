@@ -13,18 +13,21 @@ import {
     ScrollView,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+
+
 // import SplashScreen from 'react-native-splash-screen';
 
+export default function PersonalProfileDetails(props) {
 
 
-export default function SignupScreen(props) {
+
 
     const [isEnabled, setIsEnabled] = useState(false);
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
-   
 
     return (
+
         <ScrollView>
 
             <TouchableWithoutFeedback
@@ -39,8 +42,14 @@ export default function SignupScreen(props) {
                     colors={['#24202f', '#24202f', '#24202f']}
                     style={styles.container}
                 >
-                    <View>
-                        <Text style={styles.ProfileDetails}>Personal Profile Details</Text>
+                    <View style={{ flexDirection: "row" }}>
+                        <TouchableOpacity onPress={() => props.navigation.goBack()}>
+
+                            <Image style={styles.imgClose}
+                                source={require("../assets/close.png")}
+                            ></Image>
+                        </TouchableOpacity>
+                        <Text style={styles.ProfileDetails}>Personal Profiles Details</Text>
                     </View>
                     <View style={styles.tinyLogo}>
                         <Image style={styles.tinyLogo}
@@ -54,7 +63,7 @@ export default function SignupScreen(props) {
                     <View style={styles.sectionStyle}>
 
                         <TextInput
-                            style={{ flex: 1, color: 'white', fontSize: 16, fontFamily: "Poppins-Regular", marginTop: 8 }}
+                            style={{ flex: 1, color: 'white', fontSize: 13, fontFamily: "Poppins-Regular", }}
                             placeholder="Full Name"
                             placeholderTextColor='white'
 
@@ -64,7 +73,7 @@ export default function SignupScreen(props) {
                     <View style={styles.sectionStyle}>
 
                         <TextInput
-                            style={{ flex: 1, color: 'white', fontSize: 16, fontFamily: "Poppins-Regular", marginTop: 8 }}
+                            style={{ flex: 1, color: 'white', fontSize: 13, fontFamily: "Poppins-Regular", }}
                             placeholder="Mobile Number"
                             placeholderTextColor='white'
 
@@ -74,7 +83,7 @@ export default function SignupScreen(props) {
                     <View style={styles.sectionStyle}>
 
                         <TextInput
-                            style={{ flex: 1, color: 'white', fontSize: 16, fontFamily: "Poppins-Regular", marginTop: 8 }}
+                            style={{ flex: 1, color: 'white', fontSize: 13, fontFamily: "Poppins-Regular", }}
 
                             placeholder='Email'
                             placeholderTextColor='white'
@@ -88,7 +97,7 @@ export default function SignupScreen(props) {
                     <View style={styles.sectionStyle}>
 
                         <TextInput
-                            style={{ flex: 1, color: 'white', fontSize: 16, fontFamily: "Poppins-Regular", marginTop: 8 }}
+                            style={{ flex: 1, color: 'white', fontSize: 13, fontFamily: "Poppins-Regular", }}
 
                             placeholder='Date Of Birth'
                             placeholderTextColor='white'
@@ -99,19 +108,10 @@ export default function SignupScreen(props) {
 
                         />
                     </View>
-                    <View style={styles.sectionStyle}>
-
-                        <TextInput
-                            style={{ flex: 1, color: 'white', fontSize: 16, fontFamily: "Poppins-Regular", marginTop: 8, }}
-                            placeholder="Password"
-                            placeholderTextColor='white'
-                            secureTextEntry={true}
-                            textContentType='password'
-                        />
-                    </View>
 
 
-                    <Text style={styles.profileText}>Profile Background color</Text>
+
+                    <Text style={styles.profileText}>Profile Background Color</Text>
 
 
                     <View style={styles.backContainer} >
@@ -157,59 +157,106 @@ export default function SignupScreen(props) {
                         </TouchableOpacity>
 
                     </View>
+                    <TouchableOpacity onPress={() => props.navigation.navigate("changepassword")}>
 
-                    <LinearGradient
-                        start={{x: 0, y: 0}} end={{x: 1, y: 0}} 
-                        colors={['#FF7474', '#E20303']}
-                        style={styles.linearGradient}>
-                        <Text style={styles.loginButtonText}>
-                            Sign Up
-                        </Text>
-                    </LinearGradient>
-                    {/* <TouchableOpacity style={styles.loginButton}>
-          <Text style={styles.loginButtonText}>Sign in</Text>
-        </TouchableOpacity> */}
+                        <Text style={styles.changePass} >
 
-                    <View style={styles.loginWithBar}>
+                            Change Password</Text>
+
+
+
+                    </TouchableOpacity>
+
+
+
+                    <View style={styles.Cont}>
                         <TouchableOpacity>
-
+                            <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
+                                colors={['#FF7474', '#E20303']}
+                                style={styles.linearGradient} >
+                                <Text style={styles.saveButtonText} >
+                                    Save
+                                </Text>
+                            </LinearGradient>
                         </TouchableOpacity>
 
+                        <TouchableOpacity onPress={() => props.navigation.goBack()}>
 
-                    </View>
-                    <View style={styles.signUpTextView}>
-                        <Text style={styles.signUpText}>Already have an account?</Text>
-                        <TouchableOpacity onPress={()=> props.navigation.goBack()}>
-                            <Text style={[styles.signUpText, { color: '#00A8FF' }]}>
-                                {' Sign In'}
+                            <Text style={styles.cancelButtonText}>
+                                Cancel
                             </Text>
+
                         </TouchableOpacity>
                     </View>
+                    {/* <TouchableOpacity style={styles.loginButton}>
+             <Text style={styles.loginButtonText}>Sign in</Text>
+         </TouchableOpacity> */}
+
+
+
                 </LinearGradient>
             </TouchableWithoutFeedback>
         </ScrollView>
+
     );
 }
 
 const styles = StyleSheet.create({
+
+    changePass: {
+        color: '#0090FF',
+        fontSize: 14,
+        top: 30,
+        marginBottom: 20,
+
+        textAlign: 'center',
+        textDecorationLine: 'underline',
+        fontFamily: "Poppins-Regular",
+    },
+    cancelButtonText: {
+        fontSize: 16,
+        fontFamily: "Poppins-Regular",
+        color: '#fafafa',
+        alignSelf: 'center',
+        marginTop: 25,
+        marginBottom: 30
+    },
+    saveButtonText: {
+        fontSize: 16,
+        fontFamily: "Poppins-Regular",
+        color: '#fafafa',
+        alignSelf: 'center',
+    },
+    Cont: {
+        marginTop: 0,
+
+    },
+    imgClose: {
+        height: 19,
+        width: 19,
+        marginTop: 5,
+        marginLeft: 5,
+    },
+
     ProfileDetails: {
         color: 'white',
         fontSize: 20,
-        marginTop: -15,
-        marginBottom: 25,
+        marginTop: 0,
+        marginHorizontal: 65,
+        marginBottom: 20,
+        fontFamily: "Poppins-Regular",
         textAlign: 'center',
-        fontFamily: "Poppins-Regular", 
+
 
     },
     takePhoto: {
         color: '#0090FF',
         fontSize: 14,
-    
         marginTop: 10,
         marginBottom: 10,
         textAlign: 'center',
         textDecorationLine: 'underline',
-        fontFamily: "Poppins-Regular", 
+        fontFamily: "Poppins-Regular",
     },
     uploadPhoto: {
         color: '#fff',
@@ -217,7 +264,8 @@ const styles = StyleSheet.create({
         marginTop: 2,
         marginBottom: 10,
         textAlign: 'center',
-        fontFamily: "Poppins-Regular", 
+        fontFamily: "Poppins-Regular",
+
     },
     backContainer: {
         alignSelf: "center",
@@ -233,14 +281,15 @@ const styles = StyleSheet.create({
     },
     linearGradient: {
 
-        marginTop: 30,
+        marginTop: 26,
         width: 350,
         paddingVertical: 12,
         borderRadius: 11,
-
+        marginTop: 40,
         alignSelf: 'center',
         height: 48,
     },
+
     buttonText: {
         fontSize: 18,
         fontFamily: 'Gill Sans',
@@ -276,7 +325,7 @@ const styles = StyleSheet.create({
 
         fontSize: 13,
         width: '80%',
-        height: 63,
+        height: 60,
 
         margin: 10,
     },
@@ -292,19 +341,19 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingTop: 30,
         paddingHorizontal: 20,
-        backgroundColor: '#ffff'
+        backgroundColor: '#ffff',
+
     },
     tinyLogo: {
         display: "flex",
         flexDirection: 'row',
         alignItems: 'center',
-       
-       
+        marginLeft: "38%",
+        marginRight: "50%",
         justifyContent: "center",
         alignItems: "center",
-        height: 126,
-        width: 126,
-        alignSelf:"center"
+        height: 100,
+        width: 100,
 
 
     },
@@ -348,16 +397,11 @@ const styles = StyleSheet.create({
     },
     loginButtonText: {
         fontSize: 16,
-        fontFamily: "Poppins-Regular", 
+        fontFamily: "Poppins-Regular",
         color: '#fafafa',
         alignSelf: 'center',
     },
-    loginWithBar: {
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'center',
-        marginTop: 50,
-    },
+
 
     signUpTextView: {
 
@@ -371,13 +415,12 @@ const styles = StyleSheet.create({
     signUpText: {
         color: '#ffff',
         fontSize: 16,
-        fontFamily: "Poppins-Regular", 
+        fontFamily: "Poppins-Regular",
     },
     profileText: {
         color: '#ffff',
         fontSize: 16,
-       
+        fontFamily: "Poppins-Regular",
         alignSelf: "center",
-        fontFamily: "Poppins-Regular", 
     },
 });

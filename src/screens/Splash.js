@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
   },
   welcome: {
     color: 'white',
-    fontFamily: 'Poppins',
+    fontFamily: "Poppins-Regular", 
 
     fontSize: 23,
     marginTop: 3,
@@ -102,8 +102,8 @@ const styles = StyleSheet.create({
   datenight: {
     color: '#FF2B25',
     fontSize: 63,
-    fontWeight: 'bold',
-    fontFamily: 'Poppins',
+    
+    fontFamily: "Poppins-Bold", 
     marginTop: 3,
     marginBottom: 3,
     alignSelf: "center",
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
   datingText: {
     color: '#A5A5A5',
     fontSize: 23,
-    fontFamily: 'Poppins',
+    fontFamily: "Poppins", 
     marginTop: 3,
     marginBottom: 3,
     alignSelf: "center",

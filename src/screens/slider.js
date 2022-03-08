@@ -39,7 +39,9 @@ const SliderScreen = (props) => {
           justifyContent: 'space-around',
           paddingBottom: 100,
         }}>
-          
+          <Image
+          style={{ height: 120, width:132}}
+          source={(require("../assets/imglogo.png"))} ></Image>
         <Text style={styles.introTitleStyle}>
           {item.title}
         </Text>
@@ -110,18 +112,21 @@ const styles = StyleSheet.create({
     height: 150,
   },
   introTextStyle: {
-    fontSize: 18,
+    fontSize: 24,
     color: 'white',
     textAlign: 'center',
     paddingVertical: 30,
     marginBottom:20,
+    fontFamily:"Poppins-Regular"
+    
   },
   introTitleStyle: {
-    fontSize: 25,
-    color: 'white',
+    fontSize: 24,
+    color: 'red',
     textAlign: 'center',
     marginBottom: 16,
-    fontWeight: 'bold',
+    fontFamily:"Poppins-ExtraBold"
+ 
   },
 });
 
@@ -129,13 +134,15 @@ const slides = [
   {
     key: 's1',
     text: 'Create a profile',
-    title: 'Mobile Recharge',
+    title: '',
     image: require('../assets/1.png'),
     backgroundColor: 'black',
+    
+    
   },
   {
     key: 's2',
-    title: 'Plan the Date',
+    title: ' ',
     text: 'Plan the Date',
     image: require('../assets/2.png'),
     backgroundColor: 'black',
@@ -143,14 +150,14 @@ const slides = [
   },
   {
     key: 's3',
-    title: 'Send the Invitation',
+    title: ' ',
     text: 'Send the Invitation',
     image: require('../assets/3.png'),
     backgroundColor: 'black',
   },
   {
     key: 's4',
-    title: 'Enjoy the Date',
+    title: ' ',
     text: 'Enjoy the Date',
     image: require('../assets/4.png'),
     backgroundColor: 'black',

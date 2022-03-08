@@ -12,10 +12,13 @@ import {
     TouchableOpacity,
     Animated,
     TextInput,
+    FlatList
 } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Carousel from 'react-native-snap-carousel';
 import LinearGradient from 'react-native-linear-gradient';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 // import for the animation of Collapse and Expand
 import * as Animatable from 'react-native-animatable';
@@ -26,30 +29,59 @@ import Collapsible from 'react-native-collapsible';
 // import for the Accordion view
 import Accordion from 'react-native-collapsible/Accordion';
 import { Item } from 'react-native-paper/lib/typescript/components/List/List';
+import moment from 'moment';
 
 // import RadioComponent from '../components/RadioButton';
 
 // Dummy content to show
 // You can also use dynamic data by calling web service
-const CONTENT = [
+// const CONTENT = [
+//     {
+//         title: 'First Date Mode',
+//         content:
+//             'It may, or may not be an actual "first" date, but its certainly one of the first...a "get-to-know" Kind of date.You will need ice-breakers. ',
+//     },
+//     {
+//         title: 'Casual Date Mode',
+//         content:
+//             'It may, or may not be an actual "first" date, but its certainly one of the first...a "get-to-know" Kind of date.You will need ice-breakers. ',
+//     },
+//     {
+//         title: 'Exclusive Date Mode',
+//         content:
+//             'It may, or may not be an actual "first" date, but its certainly one of the first...a "get-to-know" Kind of date.You will need ice-breakers. ',
+//     },
+//     {
+//         title: 'Married Date Mode',
+//         content:
+//             'It may, or may not be an actual "first" date, but its certainly one of the first...a "get-to-know" Kind of date.You will need ice-breakers. ',
+//     },
+// ];
+
+
+const data = [
     {
+        id: 1,
         title: 'First Date Mode',
-        content:
+        description:
             'It may, or may not be an actual "first" date, but its certainly one of the first...a "get-to-know" Kind of date.You will need ice-breakers. ',
     },
     {
+        id: 2,
         title: 'Casual Date Mode',
-        content:
+        description:
             'It may, or may not be an actual "first" date, but its certainly one of the first...a "get-to-know" Kind of date.You will need ice-breakers. ',
     },
     {
+        id: 3,
         title: 'Exclusive Date Mode',
-        content:
+        description:
             'It may, or may not be an actual "first" date, but its certainly one of the first...a "get-to-know" Kind of date.You will need ice-breakers. ',
     },
     {
+        id: 4,
         title: 'Married Date Mode',
-        content:
+        description:
             'It may, or may not be an actual "first" date, but its certainly one of the first...a "get-to-know" Kind of date.You will need ice-breakers. ',
     },
 ];
@@ -66,7 +98,7 @@ const Pings = [
         id: "Item 1",
         type: "lock",
         text: " Compliment your date ",
-        selected:true,
+        selected: true,
     },
     {
         id: "Item 2",
@@ -103,16 +135,53 @@ const Pings = [
 
 
 
-const HomeScreen = () => {
+const HomeScreen = (props) => {
+
+    //fahas faq
+
+
+    const [press, setPress] = useState('');
+
+    function questionPick(item) {
+        setPress(item.id)
+    }
+
+    function questionClose(item) {
+        setPress(item.id)
+    }
+
+    //fahads
+
+
+
+
+
+
+    const [isDateSelected, setIsDateSelected] = useState(false);
+    const [isTimeSelected, setIsTimeSelected] = useState(false)
+
+
 
     const [date, setDate] = useState(new Date(Date.now()));
+
+    const [time, setTime] = useState(new Date(Date.now()));
+
     const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
 
     const onChange = (event, selectedDate) => {
         const currentDate = selectedDate || date;
         setShow(Platform.OS === 'ios');
+        setIsDateSelected(true)
         setDate(currentDate);
+    };
+
+
+    const onChangeTime = (event, selectedDate) => {
+        const currentDate = selectedDate || date;
+        setShow(Platform.OS === 'ios');
+        setIsTimeSelected(true)
+        setTime(currentDate);
     };
 
     const showMode = (currentMode) => {
@@ -207,39 +276,41 @@ const HomeScreen = () => {
     };
 
 
-const rendenPing =()=>{
-return(
-    Pings.map((v, i) => {
+
+
+    const rendenPing = () => {
         return (
-            <View style={styles.ping}
-                key={i} 
-            >
-                <TouchableOpacity
-                    
-                      
-                    style={v.type == "unlock" ? styles.PingUnlock : styles.PingBtn  ? styles.PingLock : styles.PingBtn || v.selected == "true" ? styles.PingUnlock : styles.PingBtn}
-                    type={Pings}  
-                    
+            Pings.map((v, i) => {
+                return (
+                    <View style={styles.ping}
+                        key={i}
                     >
-                        
-                
-                        <Text style={styles.PingText}>
-                            {v.text}
-                        </Text>
-                        <Text style={styles.pinLockUnclock}>
-                            {v.type}
-                        </Text>
-                   
-                </TouchableOpacity>
+                        <TouchableOpacity
+
+
+                            style={v.type == "unlock" ? styles.PingUnlock : styles.PingBtn ? styles.PingLock : styles.PingBtn || v.selected == "true" ? styles.PingUnlock : styles.PingBtn}
+                            type={Pings}
+
+                        >
+
+
+                            <Text style={styles.PingText}>
+                                {v.text}
+                            </Text>
+                            <Text style={styles.pinLockUnclock}>
+                                {v.type}
+                            </Text>
+
+                        </TouchableOpacity>
 
 
 
-            </View>
+                    </View>
+                )
+            })
         )
-    })
-)
-    
-}
+
+    }
 
     // <View style={styles.ping}>
     //     <TouchableOpacity >
@@ -285,7 +356,19 @@ return(
         <SafeAreaView style={{ flex: 1 }}>
             <View style={styles.container}>
                 <ScrollView>
+                    <View style={styles.TopHeader}>
+                        <TouchableOpacity onPress={() => props.navigation.navigate('faqscreen')}>
+                            <Text style={{ fontSize: 23, color: "white", alignSelf: "flex-start", margin: 20, }}> Faq</Text>
+                        </TouchableOpacity>
 
+                        <TouchableOpacity onPress={() => props.navigation.navigate('personalprofiledetails')}>
+
+                            <Image style={styles.imgSetting}
+                                source={require("../assets/setting.png")}
+                            ></Image>
+                        </TouchableOpacity>
+                    </View>
+                    {/* 
                     <Accordion
 
 
@@ -308,34 +391,104 @@ return(
                         // Duration for Collapse and expand
                         onChange={setSections}
                     // Setting the state of active sections
-                    />
-                    {/*Code for Accordion/Expandable List ends here*/}
+                    /> */}
+
+
+
+                    <View >
+
+                        {/* <NavHeader title="FAQ" /> */}
+
+                        <View style={{ alignItems: 'center', }}>
+
+                        <View>
+
+                        <Text style={styles.ModeHeading}>choose Your Mode</Text>
+                        </View>
+                            
+
+                            <FlatList
+                                data={data}
+                                keyExtractor={(item, index) => index.toString()}
+                                style={{ width: '90%' }}
+                                renderItem={({ item, index }) => (
+                                    <TouchableOpacity
+                                        onPress={() => questionPick(item)}
+                                        style={{ marginTop: 20, width: '100%', padding: 3 }}
+                                    >
+                                        {press === item.id ?
+                                            <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: '#0883FB', paddingHorizontal: 10, paddingVertical: 10, height: 76, borderRadius: 18, color: "White" }}>
+                                                <MaterialIcons name='expand-less' size={hp('5%')} color="white" />
+                                                <Text style={{ color: 'white', fontFamily: "Poppins-Regular", fontSize: 16 }}>{item.title}</Text>
+                                                {/* <AntDesign name="caretdown" size={16} color="black"/> */}
+
+
+                                            </View>
+                                            :
+                                            <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: '#0883FB', paddingHorizontal: 10, paddingVertical: 10, height: 76, borderRadius: 18, color: "White" }}>
+                                                <MaterialIcons name='expand-more' size={hp('5%')} color="white" />
+                                                <View>
+                                                    <Text style={{ padding: 5, fontFamily: "Poppins-Regular", color: "white", fontSize: 16 }}>{item.title}</Text>
+                                                </View>
+
+
+                                            </View>
+                                        }
+
+                                        {press === item.id ?
+
+                                            <TouchableOpacity onPress={() => setPress('')}>
+
+                                                <Text style={{ padding: 15, marginHorizontal: 0, top: -10, backgroundColor: "white", color: "#B4B4B4", borderBottomLeftRadius: 18, borderBottomRightRadius: 18, fontSize: 14, fontFamily: "Poppins-Regular", }}>{item.description} </Text>
+
+                                            </TouchableOpacity>
+
+                                            :
+                                            null
+                                        }
+                                    </TouchableOpacity>
+
+                                )}
+                            />
+                        </View>
+                    </View>
+
+
+
+
                     <View style={styles.AddPersonView}>
                         <Text style={styles.choosePersonText}> Choose Your Date</Text>
-                        <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
-                            colors={['#FF7474', '#E20303']}
-                            style={styles.linearGradient} >
-                            <Text style={styles.AddButtonText}>
-                                Add New Person
-                            </Text>
-                        </LinearGradient>
+                        <TouchableOpacity onPress={() => props.navigation.navigate("addpartnersdetails")}>
+                            <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
+                                colors={['#FF7474', '#E20303']}
+                                style={styles.linearGradient} >
+                                <Text style={styles.AddButtonText}>
+                                    Add New Person
+                                </Text>
+                            </LinearGradient>
+                        </TouchableOpacity>
                     </View>
                     <View style={styles.AddCouple}>
+
                         <Text style={styles.choosePersonText}>   Add Another Couple</Text>
-                        <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
-                            colors={['#FF7474', '#E20303']}
-                            style={styles.linearGradient} >
-                            <Text style={styles.AddButtonText}>
-                                Add New person
-                            </Text>
-                        </LinearGradient>
-                        <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
-                            colors={['#FF7474', '#E20303']}
-                            style={styles.linearGradient} >
-                            <Text style={styles.AddButtonText}>
-                                Add New person
-                            </Text>
-                        </LinearGradient>
+                        <TouchableOpacity onPress={() => props.navigation.navigate("addcouple")}>
+                            <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
+                                colors={['#FF7474', '#E20303']}
+                                style={styles.linearGradient} >
+                                <Text style={styles.AddButtonText}>
+                                    Add New person
+                                </Text>
+                            </LinearGradient>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => props.navigation.navigate("addcouple")}>
+                            <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
+                                colors={['#FF7474', '#E20303']}
+                                style={styles.linearGradient} >
+                                <Text style={styles.AddButtonText}>
+                                    Add New person
+                                </Text>
+                            </LinearGradient>
+                        </TouchableOpacity>
                     </View>
                     <View style={styles.addEvent}>
                         <Text style={styles.choosePersonText}>  Add An Event</Text>
@@ -374,54 +527,51 @@ return(
                         <TouchableOpacity onPressIn={onPressMius}
                             onPress={onPree}
                             onPressOut={onPree}>
-                        <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
-                            colors={['#FF2B25', '#FF2B25']}
-                            style={styles.btn1} >
-                            <Text style={styles.btn1Text}>
-                                -
-                            </Text>
-                        </LinearGradient>
+                            <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
+                                colors={['#FF2B25', '#FF2B25']}
+                                style={styles.btn1} >
+                                <Text style={styles.btn1Text}>
+                                    -
+                                </Text>
+                            </LinearGradient>
                         </TouchableOpacity>
                         <Text style={styles.count}>{count}</Text>
-                       
+
                         <TouchableOpacity onPressIn={onPressIn}
                             onPress={onPress}
                             onPressOut={onPressOut}>
-                        <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
-                            colors={['#FF2B25', '#FF2B25']}
-                            style={styles.btn2} >
-                            <Text style={styles.btn2Text}>
-                                +
-                            </Text>
-                        
-                        </LinearGradient>
+                            <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
+                                colors={['#FF2B25', '#FF2B25']}
+                                style={styles.btn2} >
+                                <Text style={styles.btn2Text}>
+                                    +
+                                </Text>
+
+                            </LinearGradient>
                         </TouchableOpacity>
                     </View>
                     <Text style={styles.mins}>mins</Text>
                     <Text style={styles.selectPngText}>Select Your Pings</Text>
-        <ScrollView horizontal={true}>
-                   
-                   {
-                       rendenPing()
-                   }
+                    <ScrollView horizontal={true}>
+
+                        {
+                            rendenPing()
+                        }
                     </ScrollView>
                     <View style={styles.ScheduleView}>
                         <Text style={styles.choosePersonText}> Schedule Your Date</Text>
 
 
-                        <View style={styles.sectionStyle}> 
+                        <View style={styles.sectionStyle}>
                             <Image
                                 source={require('../assets/calender.png')} //Change your icon image here
                                 style={styles.imageStyle}
                             />
                             <Text
-                                style={{ flex: 1, color: 'white', fontSize: 14,}}
-
-                               
+                                style={{ flex: 1, color: 'white', fontSize: 16, fontFamily: "Poppins-Regular",  marginLeft:-40,}}
                                 onPress={showDatepicker}
-                                
-
-                            >  {date.toUTCString()}
+                            >
+                                {isDateSelected ? `${date.getMonth() + ' | ' + date.getDate() + ' | ' + date.getFullYear()}` : "Select Date"}
                             </Text>
                             {show && (
                                 <DateTimePicker
@@ -430,7 +580,7 @@ return(
                                     mode={mode}
                                     is24Hour={true}
                                     display="default"
-                                    onChange={onChange}
+                                    onChange={mode == 'date' ? onChange : onChangeTime}
                                 />
                             )}
                         </View>
@@ -440,28 +590,31 @@ return(
                                 style={styles.imageStyle}
                             />
                             <Text
-                                style={{ flex: 1, color: 'white', fontSize: 14, }}
+                                style={{ flex: 1, color: 'white',fontSize: 16, fontFamily: "Poppins-Regular",  marginLeft:-40,}}
 
                                 onPress={showTimepicker}
-                                
-                              
-                            > Select Your time  </Text>
-                            
+
+
+                            >  {isTimeSelected ? `${time.getHours() + ' : ' + time.getMinutes()} ` : "Select Time"} </Text>
+
                         </View>
 
 
 
+                        <TouchableOpacity onPress={() => props.navigation.navigate('donefornow')}>
+                            <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
+                                colors={['#FF7474', '#E20303']}
+                                style={styles.linearGradient} >
+                                <Text style={styles.AddButtonText}>
+                                    Send Invitation
+                                </Text>
+                            </LinearGradient>
 
-                        <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
-                            colors={['#FF7474', '#E20303']}
-                            style={styles.linearGradient} >
-                            <Text style={styles.AddButtonText}>
-                               Send Invitation
-                            </Text>
-                        </LinearGradient>
+</TouchableOpacity>
+                       
                     </View>
                 </ScrollView>
-                
+
             </View>
         </SafeAreaView>
     );
@@ -470,6 +623,36 @@ return(
 export default HomeScreen;
 
 const styles = StyleSheet.create({
+    ModeHeading:{
+        color: 'white',
+        fontSize: 20,
+        marginTop: 30,
+      
+        marginBottom: 5,
+        fontFamily: "Poppins-Regular",
+        textAlign: 'center',
+      
+    },
+    imgSetting: {
+        height: 35,
+        width: 35,
+        flexDirection: 'row', 
+        justifyContent: 'flex-end',
+        marginRight: 20,
+   
+       
+        marginTop: 20,
+    },
+    TopHeader: {
+        height: 76,
+        backgroundColor: '#363143',
+justifyContent:'space-between',
+        flexDirection: 'row',
+        borderBottomLeftRadius: 26, zIndex: 999,
+        borderBottomRightRadius: 26,
+       
+
+    },
     ScheduleView: {
         marginTop: 90,
         height: 436,
@@ -482,8 +665,8 @@ const styles = StyleSheet.create({
         height: 55,
         width: 55,
         resizeMode: 'stretch',
-        flexDirection:"row-reverse",
-        left:280
+        flexDirection: "row-reverse",
+        left: 280
     },
     sectionStyle: {
         flexDirection: 'row',
@@ -492,30 +675,31 @@ const styles = StyleSheet.create({
         backgroundColor: '#363143',
         borderRadius: 18,
         marginTop: 10,
-       
+        fontFamily: "Poppins-Regular",
         fontSize: 16,
-        width:354,
+        width: 354,
         height: 76,
 
         margin: 10,
-        alignSelf:"center",
+        alignSelf: "center",
     },
-    PingBtn:{
-        width:89,
-        height:90,
-        borderRadius:12,
-        margin:15,
-        backgroundColor:"#FF2B25"
+    PingBtn: {
+        width: 89,
+        height: 90,
+        borderRadius: 12,
+        margin: 15,
+        backgroundColor: "#FF2B25",
+        fontFamily: "Poppins-Regular",
 
 
     },
     PingUnlock: {
-       width:89,
-        height:90,
-        borderRadius:12,
-        margin:15,
-        backgroundColor:"#00B712"
-
+        width: 89,
+        height: 90,
+        borderRadius: 12,
+        margin: 15,
+        backgroundColor: "#00B712",
+        fontFamily: "Poppins-Regular",
 
     },
     PingLock: {
@@ -523,21 +707,21 @@ const styles = StyleSheet.create({
         height: 90,
         borderRadius: 12,
         margin: 15,
-        backgroundColor: "grey"
-
-
-    },
-    PingText:{
-        fontSize:12,
-        color:"white",
-        alignSelf:"center",
-        fontWeight:"bold",
-        textAlign:"center",
-        marginTop:27,
-        marginHorizontal:6
+        backgroundColor: "grey",
+        fontFamily: "Poppins-Regular",
 
     },
-    pinLockUnclock:{
+    PingText: {
+        fontSize: 12,
+        color: "white",
+        alignSelf: "center",
+        fontWeight: "bold",
+        textAlign: "center",
+        marginTop: 27,
+        marginHorizontal: 6
+
+    },
+    pinLockUnclock: {
         fontSize: 12,
         color: "white",
         alignSelf: "center",
@@ -546,12 +730,12 @@ const styles = StyleSheet.create({
         marginTop: 10,
         marginHorizontal: 6
     },
-    
+
     selectPngText: {
         fontSize: 20,
         color: "white",
         alignSelf: "center",
-      
+        fontFamily: "Poppins-Regular",
         textAlign: "center",
         marginTop: 27,
         marginHorizontal: 6
@@ -559,29 +743,32 @@ const styles = StyleSheet.create({
     },
 
 
-    mins:{
-fontSize:14,
-alignSelf:"center",
-        color:"#B8B8B8",
-bottom:30,
+    mins: {
+        fontSize: 14,
+        alignSelf: "center",
+        color: "#B8B8B8",
+        bottom: 30,
+        fontFamily: "Poppins-Regular",
 
     },
     count: {
         fontSize: 30,
-        color:"white",
-        alignSelf:"center",
-        marginHorizontal:55,
+        color: "white",
+        alignSelf: "center",
+        marginHorizontal: 55,
+        fontFamily: "Poppins-Regular",
     },
     ping: {
         flexDirection: "row",
-        marginTop:20,
-        alignSelf:"center",
-      
+        marginTop: 20,
+        alignSelf: "center",
+
     },
     btn1Text: {
         fontSize: 41,
         alignSelf: "center",
         color: "white",
+        fontFamily: "Poppins-Regular",
 
     },
     btn1: {
@@ -589,12 +776,14 @@ bottom:30,
         height: 58,
         margin: 25,
         borderRadius: 18,
-   
+        fontFamily: "Poppins-Regular",
+
     },
     btn2Text: {
         fontSize: 41,
         alignSelf: "center",
         color: "white",
+        fontFamily: "Poppins-Regular",
 
     },
     btn2: {
@@ -620,6 +809,7 @@ bottom:30,
         marginHorizontal: 20,
         marginTop: 25,
         fontSize: 16,
+        fontFamily: "Poppins-Regular",
 
     },
     zipCode: {
@@ -627,6 +817,7 @@ bottom:30,
         alignSelf: "center",
         marginTop: 8,
         color: "#9f9f9f",
+        fontFamily: "Poppins-Regular",
     },
     addEvent: {
         height: 538,
@@ -639,7 +830,7 @@ bottom:30,
     },
     AddButtonText: {
         fontSize: 16,
-
+        fontFamily: "Poppins-Regular",
 
         alignSelf: "center",
         color: '#FFFF',
@@ -661,12 +852,13 @@ bottom:30,
 
     },
     AddButtonText: {
+        height: 76,
         fontSize: 16,
-
-        marginTop: 23,
+        fontFamily: "Poppins-Regular",
+        marginTop: 27,
         alignSelf: "center",
         color: '#FFFF',
-        
+
 
     },
     linearGradient: {
@@ -677,10 +869,10 @@ bottom:30,
         borderRadius: 16,
         marginTop: 40,
         alignSelf: 'center',
-     height: 76,
+        height: 76,
     },
     AddPersonView: {
-        marginTop: 90,
+        marginTop: 60,
         height: 236,
         backgroundColor: '#4D4D4D',
 
@@ -690,7 +882,7 @@ bottom:30,
         fontSize: 20,
         color: "#FFFF",
         alignSelf: "center",
-
+        fontFamily: "Poppins-Regular",
 
     }
     ,
@@ -707,13 +899,13 @@ bottom:30,
     container: {
         flex: 1,
         backgroundColor: 'black',
-  
+
 
     },
     title: {
         textAlign: 'center',
         fontSize: 18,
-        fontWeight: '300',
+        fontFamily: "Poppins-Regular",
         marginBottom: 20,
     },
     header: {
@@ -733,7 +925,7 @@ bottom:30,
     headerText: {
         textAlign: 'center',
         fontSize: 16,
-        fontWeight: '500',
+        fontFamily: "Poppins-Regular",
         color: "white",
         alignSelf: "flex-start",
         marginTop: 15,
@@ -762,7 +954,7 @@ bottom:30,
     },
     selectTitle: {
         fontSize: 14,
-        fontWeight: '500',
+        fontFamily: "Poppins-Regular",
         padding: 10,
         textAlign: 'center',
     },
@@ -775,5 +967,6 @@ bottom:30,
     multipleToggle__title: {
         fontSize: 16,
         marginRight: 8,
+        fontFamily: "Poppins-Regular",
     },
 });
