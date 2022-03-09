@@ -3,7 +3,7 @@
 
 // npm i @react-navigation/bottom-tabs react-native-elements
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState  , Component} from "react";
 import {
     View, Image, Text, StyleSheet, TouchableOpacity,
     TouchableHighlight, ScrollView, FlatList, SafeAreaView, StatusBar, Switch, ImageBackground,
@@ -15,6 +15,7 @@ import {
 
 
 import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'react-native-simple-radio-button';
+
 
 
 
@@ -67,44 +68,74 @@ const DATA = [
     {
         Id: 12,
         title: 'Chinese Food'
+    
     }
 ]
 
 
+// const Switches = () => {
+//     const [isEnabled, setIsEnabled] = useState(false);
+//     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+
+//     return (
+//         DATA.map((v,i) => {
+//             return (
+//                 <Switch
+//                    style={{top:-60}}
+//                     trackColor={{ false: "#24202F", true: "#24202F" }}
+//                     thumbColor={isEnabled ? "white" : "#00B712"}
+//                     ios_backgroundColor="#3e3e3e"
+//                     onValueChange={toggleSwitch}
+//                     value={isEnabled}
+             
+                    
+//                 />
+            
+//             )
+//         })
+//     )
+
+// }
+
 
 
 function TabA() {
+
     const [isEnabled, setIsEnabled] = useState(false);
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+    
 
 
 
+const Item =({title})=> {
+
+const [isEnabled, setIsEnabled] = useState(false);
+    const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+    return(
+
+        <ScrollView nestedScrollEnabled={true}>
+            <View style={styles.item}>
+
+
+                <Text style={styles.title}>{title}</Text>
+
+                <Switch
+                    style={{ top: -27, left: -260 }}
+                    trackColor={{ false: "#24202F", true: "#24202F" }}
+                    thumbColor={isEnabled ? "white" : "#00B712"}
+                    ios_backgroundColor="#3e3e3e"
+                    onValueChange={toggleSwitch}
+                    value={isEnabled}
+
+                />
+            </View>
+
+        </ScrollView>
+    )
+}
 
 
 
-    const Item = ({ title }) => (
-
-
-
-
-
-
-        <View style={styles.item}>
-
-
-            <Text style={styles.title}>{title}</Text>
-
-            <Switch
-                style={{ top: -27, right: 340 }}
-                trackColor={{ false: "#24202F", true: "#24202F" }}
-                thumbColor={isEnabled ? "white" : "#00B712"}
-                ios_backgroundColor="#3e3e3e"
-                onValueChange={toggleSwitch}
-                value={isEnabled}
-
-            />
-        </View>
-    );
 
 
 
@@ -114,12 +145,13 @@ function TabA() {
 
 
     return (
+        <View  style={styles.MainBack}>
         <View style={styles.container2}>
             <View style={styles.MainView}>
                 <View style={styles.InnerView}>
                     <Text style={styles.ChooseMeal}>
                         Choose Meal
-
+                          
                     </Text>
 
                     <TouchableOpacity>
@@ -148,10 +180,12 @@ function TabA() {
 
 
 
-                <ScrollView>
+                
                     <SafeAreaView style={styles.container}>
+                        <ScrollView nestedScrollEnabled={true}>
+                        <FlatList 
 
-                        <FlatList
+                                nestedScrollEnabled={true}
 
                             data={DATA}
                             renderItem={renderItem}
@@ -159,18 +193,22 @@ function TabA() {
 
 
                         />
-                    </SafeAreaView>
-                </ScrollView>
+                            
+                        </ScrollView>
 
+                    </SafeAreaView>
+             
             </View>
 
 
         </View>
-
+</View>
 
     )
 }
 function TabB() {
+
+
     const [isEnabled, setIsEnabled] = useState(false);
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
@@ -186,21 +224,21 @@ function TabB() {
 
 
 
-        // <View style={styles.item}>
+    // <View style={styles.item}>
 
 
-        //     <Text style={styles.title}>{title}</Text>
+    //     <Text style={styles.title}>{title}</Text>
 
-        //     <Switch
-        //         style={{ top: -27, right: 340 }}
-        //         trackColor={{ false: "#24202F", true: "#24202F" }}
-        //         thumbColor={isEnabled ? "white" : "#00B712"}
-        //         ios_backgroundColor="#3e3e3e"
-        //         onValueChange={toggleSwitch}
-        //         value={isEnabled}
+    //     <Switch
+    //         style={{ top: -27, right: 340 }}
+    //         trackColor={{ false: "#24202F", true: "#24202F" }}
+    //         thumbColor={isEnabled ? "white" : "#00B712"}
+    //         ios_backgroundColor="#3e3e3e"
+    //         onValueChange={toggleSwitch}
+    //         value={isEnabled}
 
-        //     />
-        // </View>
+    //     />
+    // </View>
     // );
 
 
@@ -211,46 +249,46 @@ function TabB() {
 
 
     return (
+        <View style={styles.MainBack}>
+        <View style={styles.Baap}>
+            <View style={styles.container2}>
+                <View style={styles.MainView}>
+                    <View style={styles.InnerView}>
+                        <Text style={styles.ChooseMeal}>
+                            Choose Place
 
-        <View  style={styles.Baap}>
-        <View style={styles.container2}>
-            <View style={styles.MainView}>
-                <View style={styles.InnerView}>
-                    <Text style={styles.ChooseMeal}>
-                       Choose Place
+                        </Text>
 
-                    </Text>
+                        <TouchableOpacity>
 
-                    <TouchableOpacity>
+                            <View style={styles.RadioView}>
+                                <View style={styles.RadioInnerView}>
 
-                        <View style={styles.RadioView}>
-                            <View style={styles.RadioInnerView}>
+                                </View>
 
                             </View>
 
-                        </View>
+                        </TouchableOpacity>
+                    </View>
 
-                    </TouchableOpacity>
+
+
+
+
+
+
+
+
                 </View>
 
+                <View style={styles.radiosView}>
 
 
 
+                    <ScrollView>
+                        <SafeAreaView style={styles.container}>
 
-
-
-
-
-            </View>
-
-            <View style={styles.radiosView}>
-
-
-
-                <ScrollView>
-                    <SafeAreaView style={styles.container}>
-
-                        {/* <FlatList
+                            {/* <FlatList
 
                             data={DATA}
                             renderItem={renderItem}
@@ -258,18 +296,21 @@ function TabB() {
 
 
                         /> */}
-                    </SafeAreaView>
-                </ScrollView>
+                        </SafeAreaView>
+                    </ScrollView>
+
+                </View>
+
 
             </View>
 
-
         </View>
-
         </View>
     )
 }
 function TabC() {
+
+
     const [isEnabled, setIsEnabled] = useState(false);
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
@@ -278,38 +319,39 @@ function TabC() {
 
 
 
-    const Item = ({ title }) => (
+    // const Item = ({ title }) => (
 
 
 
 
 
 
-        <View style={styles.item}>
+    //     <View style={styles.item}>
 
 
-            <Text style={styles.title}>{title}</Text>
+    //         <Text style={styles.title}>{title}</Text>
 
-            <Switch
-                style={{ top: -27, right: 340 }}
-                trackColor={{ false: "#24202F", true: "#24202F" }}
-                thumbColor={isEnabled ? "white" : "#00B712"}
-                ios_backgroundColor="#3e3e3e"
-                onValueChange={toggleSwitch}
-                value={isEnabled}
+    //         <Switch
+    //             style={{ top: -27, right: 340 }}
+    //             trackColor={{ false: "#24202F", true: "#24202F" }}
+    //             thumbColor={isEnabled ? "white" : "#00B712"}
+    //             ios_backgroundColor="#3e3e3e"
+    //             onValueChange={toggleSwitch}
+    //             value={isEnabled}
 
-            />
-        </View>
-    );
+    //         />
+    // //     </View>
+    // );
 
 
 
-    const renderItem = ({ item }) => (
-        <Item title={item.title} />
-    );
+    // const renderItem = ({ item }) => (
+    //     <Item title={item.title} />
+    // );
 
 
     return (
+        <View style={styles.MainBack}>
         <View style={styles.container2}>
             <View style={styles.MainView}>
                 <View style={styles.InnerView}>
@@ -346,7 +388,7 @@ function TabC() {
 
                 <ScrollView>
                     <SafeAreaView style={styles.container}>
-
+{/* 
                         <FlatList
 
                             data={DATA}
@@ -354,7 +396,7 @@ function TabC() {
                             keyExtractor={items => items.id}
 
 
-                        />
+                        /> */}
                     </SafeAreaView>
                 </ScrollView>
 
@@ -363,62 +405,72 @@ function TabC() {
 
         </View>
 
-
+</View>
     )
 }
 
 const Tab = createBottomTabNavigator();
 
-export default function ReactNavigationBottomTabs() {
+class ReactNavigationBottomTabs extends Component {
+
+render(){
     return (
         <Tab.Navigator
-          
-       screenOptions={
-           {
-                    tabBarStyle:{height:100}
-           }
-       }
+
+            screenOptions={
+                {
+                    
+                    tabBarStyle: { marginBottom:50, height: 90, marginHorizontal: 42, backgroundColor:'#363143' ,
+             
+                        borderBottomLeftRadius: 16,
+                        borderBottomRightRadius: 16,
+                }
+                }
+            }
             tabBarOptions={
 
-       
 
-                { 
-                    
+
+                {
+
                    
                     // Default Color is blue you can change it by following props
                     activeTintColor: '#363143',
                     inactiveTintColor: '#363143',
                     // Default Background Color is white you can change it by following props
-                    activeBackgroundColor: '#363143',
-                    inactiveBackgroundColor: '#363143',
-                    
+                
                 }
+                
             }
+
+          
         >
 
             <Tab.Screen
+
+               
                 name="TaB A"
                 component={TabA}
 
-                
+
                 options={{
 
 
-                    
+
                     headerShown: false,
-       
-                    tabBarIcon: ({ size, focused, color }) => {
+
+                    tabBarIcon: ({ focused, color  }) => {
                         return (
                             <Image
-                                style={{ width: 70 , size, height:70 ,size }}
-                                source= {(require('../assets/card1.png'))}
+                                style={{ width: 60, height: 60,  }}
+                                source={(require('../assets/card1.png'))}
                             />
                         );
                     },
                 }}
             />
 
-{/* 
+            {/* 
             <Tab.Screen
                 
                 name='Tab A'
@@ -439,13 +491,13 @@ export default function ReactNavigationBottomTabs() {
                 options={{
 
 
-
+                
                     headerShown: false,
 
-                    tabBarIcon: ({ size, focused, color }) => {
+                    tabBarIcon: ({  focused, color }) => {
                         return (
                             <Image
-                                style={{ width: 70, size, height: 70, size }}
+                                style={{ width: 60,  height: 60, }}
                                 source={(require('../assets/card2.png'))}
                             />
                         );
@@ -463,10 +515,10 @@ export default function ReactNavigationBottomTabs() {
 
                     headerShown: false,
 
-                    tabBarIcon: ({ size, focused, color }) => {
+                    tabBarIcon: ({  focused, color }) => {
                         return (
                             <Image
-                                style={{ width: 70, size, height: 70, size }}
+                                style={{ width: 60, height: 60, }}
                                 source={(require('../assets/card3.png'))}
                             />
                         );
@@ -475,9 +527,22 @@ export default function ReactNavigationBottomTabs() {
             />
         </Tab.Navigator>
     );
+            }
 }
 
 const styles = StyleSheet.create({
+    Baap:{
+
+    },
+
+    MainBack:{
+
+        backgroundColor:'#4D4D4D',
+flex:1,
+padding:40,
+
+    },
+
 
     BtnViews: {
         flex: 1,
@@ -492,10 +557,11 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        marginTop: 40,
-        height: 1300,
-
+        marginTop: 10,
+        flexDirection:'row'
         
+     
+
     },
 
     title: {
@@ -510,22 +576,29 @@ const styles = StyleSheet.create({
         fontFamily: 'Poppins-Regular',
         height: 60,
         color: "white",
-        top: 20
+        top: 20,
+        
 
     },
 
     container2: {
-        flex: 1,
 
+        
+        flexDirection: 'column',
+  
+       
+        
 
+        
     },
     radiosView: {
         backgroundColor: "#363143",
-        height: 1000,
-        width: 408,
+        height: 1300,
+        width: 325,
         marginHorizontal: 2,
         flexDirection: "column",
-        marginTop: -16,
+  
+
 
 
     },
@@ -544,11 +617,11 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         width: 42,
         height: 42,
-        marginLeft: 210,
+        marginLeft: 128,
         backgroundColor: 'white',
         borderRadius: 120,
         marginTop: 13,
-
+   
 
     },
     ChooseMeal: {
@@ -563,16 +636,21 @@ const styles = StyleSheet.create({
     },
     MainView: {
         backgroundColor: "#534C64",
-        height: 76,
+        height:76,
         borderRadius: 20,
         zIndex: 99,
-
-
+      
+     
     },
     InnerView: {
 
         flexDirection: "row",
+       
+
+
 
     },
 
 });
+
+export default ReactNavigationBottomTabs

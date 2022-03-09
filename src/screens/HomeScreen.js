@@ -12,7 +12,8 @@ import {
     TouchableOpacity,
     Animated,
     TextInput,
-    FlatList
+    FlatList,
+
 } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Carousel from 'react-native-snap-carousel';
@@ -30,7 +31,8 @@ import Collapsible from 'react-native-collapsible';
 import Accordion from 'react-native-collapsible/Accordion';
 import { Item } from 'react-native-paper/lib/typescript/components/List/List';
 import moment from 'moment';
-
+import TabsCardComponent from '../components/TabsCard';
+import ReactNavigationBottomTabs from './tabscardold';
 // import RadioComponent from '../components/RadioButton';
 
 // Dummy content to show
@@ -95,37 +97,37 @@ const Pings = [
         selected: true,
     },
     {
-        id: "Item 1",
+        id: "Item 2",
         type: "lock",
         text: " Compliment your date ",
         selected: true,
     },
     {
-        id: "Item 2",
+        id: "Item 3",
         type: "unlock",
         text: " Compliment your date ",
         selected: true,
     },
     {
-        id: "Item 1",
+        id: "Item 4",
         type: "lock",
         text: " Compliment your date ",
         selected: false,
     },
     {
-        id: "Item 2",
+        id: "Item 5",
         type: "unlock",
         text: " Compliment your date ",
         selected: false,
     },
     {
-        id: "Item 1",
+        id: "Item 6",
         type: "lock",
         text: " Compliment your date ",
         selected: false,
     },
     {
-        id: "Item 2",
+        id: "Item 7",
         type: "unlock",
         text: " Compliment your date ",
         selected: false,
@@ -401,11 +403,11 @@ const HomeScreen = (props) => {
 
                         <View style={{ alignItems: 'center', }}>
 
-                        <View>
+                            <View>
 
-                        <Text style={styles.ModeHeading}>choose Your Mode</Text>
-                        </View>
-                            
+                                <Text style={styles.ModeHeading}>choose Your Mode</Text>
+                            </View>
+
 
                             <FlatList
                                 data={data}
@@ -490,38 +492,53 @@ const HomeScreen = (props) => {
                             </LinearGradient>
                         </TouchableOpacity>
                     </View>
-                    <View style={styles.addEvent}>
-                        <Text style={styles.choosePersonText}>  Add An Event</Text>
-                        <Text style={styles.zipCode}>  Zip code +</Text>
-                        <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
-                            colors={['#80D3FC', '#80D3FC']}
-                            style={styles.addEventButton} >
-                            <Text style={styles.AddMeal}>
-                                Add a meal
-                            </Text>
-                        </LinearGradient>
-                        <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
-                            colors={['#44BEFB', '#44BEFB']}
-                            style={styles.addEventButton} >
-                            <Text style={styles.AddMeal}>
-                                Add An activity
-                            </Text>
-                        </LinearGradient>
-                        <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
-                            colors={['#0883FB', '#0883FB']}
-                            style={styles.addEventButton} >
-                            <Text style={styles.AddMeal}>
-                                Add Desert
-                            </Text>
-                        </LinearGradient>
-                        <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
-                            colors={['#0149FF', '#0149FF']}
-                            style={styles.addEventButton} >
-                            <Text style={styles.AddMeal}>
-                                Add Drink
-                            </Text>
-                        </LinearGradient>
-                    </View>
+                    <ScrollView horizontal={true} >
+
+
+                        <View style={styles.addEvent}>
+
+                            <View style={styles.mealView} >
+                                <Text style={styles.choosePersonText}>  Add An Event</Text>
+                         
+                                <ReactNavigationBottomTabs nestedScrollEnabled={true}></ReactNavigationBottomTabs>      
+                           
+                              
+                            </View>
+                            <View style={styles.mealView} >
+                               
+                                <Text style={styles.choosePersonText}>  Add An Event</Text>
+                                <Text style={styles.zipCode}>  Zip code +</Text>
+                                <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
+                                    colors={['#80D3FC', '#80D3FC']}
+                                    style={styles.addEventButton} >
+                                    <Text style={styles.AddMeal}>
+                                        Add a meal
+                                    </Text>
+                                </LinearGradient>
+                                <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
+                                    colors={['#44BEFB', '#44BEFB']}
+                                    style={styles.addEventButton} >
+                                    <Text style={styles.AddMeal}>
+                                        Add An activity
+                                    </Text>
+                                </LinearGradient>
+                                <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
+                                    colors={['#0883FB', '#0883FB']}
+                                    style={styles.addEventButton} >
+                                    <Text style={styles.AddMeal}>
+                                        Add Desert
+                                    </Text>
+                                </LinearGradient>
+                                <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
+                                    colors={['#0149FF', '#0149FF']}
+                                    style={styles.addEventButton} >
+                                    <Text style={styles.AddMeal}>
+                                        Add Drink
+                                    </Text>
+                                </LinearGradient>
+                            </View>
+                        </View>
+                    </ScrollView>
                     <Text style={styles.choosePersonText}>   Select Your Ping Frequency</Text>
                     <View style={styles.ping}>
                         <TouchableOpacity onPressIn={onPressMius}
@@ -568,7 +585,7 @@ const HomeScreen = (props) => {
                                 style={styles.imageStyle}
                             />
                             <Text
-                                style={{ flex: 1, color: 'white', fontSize: 16, fontFamily: "Poppins-Regular",  marginLeft:-40,}}
+                                style={{ flex: 1, color: 'white', fontSize: 16, fontFamily: "Poppins-Regular", marginLeft: -40, }}
                                 onPress={showDatepicker}
                             >
                                 {isDateSelected ? `${date.getMonth() + ' | ' + date.getDate() + ' | ' + date.getFullYear()}` : "Select Date"}
@@ -590,7 +607,7 @@ const HomeScreen = (props) => {
                                 style={styles.imageStyle}
                             />
                             <Text
-                                style={{ flex: 1, color: 'white',fontSize: 16, fontFamily: "Poppins-Regular",  marginLeft:-40,}}
+                                style={{ flex: 1, color: 'white', fontSize: 16, fontFamily: "Poppins-Regular", marginLeft: -40, }}
 
                                 onPress={showTimepicker}
 
@@ -610,8 +627,8 @@ const HomeScreen = (props) => {
                                 </Text>
                             </LinearGradient>
 
-</TouchableOpacity>
-                       
+                        </TouchableOpacity>
+
                     </View>
                 </ScrollView>
 
@@ -623,34 +640,42 @@ const HomeScreen = (props) => {
 export default HomeScreen;
 
 const styles = StyleSheet.create({
-    ModeHeading:{
+    mealView: {
+        flex: 1,
+        flexDirection: 'column',
+        width: 410,
+    
+     
+
+    },
+    ModeHeading: {
         color: 'white',
         fontSize: 20,
         marginTop: 30,
-      
+
         marginBottom: 5,
         fontFamily: "Poppins-Regular",
         textAlign: 'center',
-      
+
     },
     imgSetting: {
         height: 35,
         width: 35,
-        flexDirection: 'row', 
+        flexDirection: 'row',
         justifyContent: 'flex-end',
         marginRight: 20,
-   
-       
+
+
         marginTop: 20,
     },
     TopHeader: {
         height: 76,
         backgroundColor: '#363143',
-justifyContent:'space-between',
+        justifyContent: 'space-between',
         flexDirection: 'row',
         borderBottomLeftRadius: 26, zIndex: 999,
         borderBottomRightRadius: 26,
-       
+
 
     },
     ScheduleView: {
@@ -798,7 +823,8 @@ justifyContent:'space-between',
         margin: 10,
         height: 76,
         borderRadius: 16,
-        marginHorizontal: 25,
+        marginHorizontal:40
+
 
 
     },
@@ -809,7 +835,7 @@ justifyContent:'space-between',
         marginHorizontal: 20,
         marginTop: 25,
         fontSize: 16,
-        fontFamily: "Poppins-Regular",
+        fontFamily: "Poppins-Regular", 
 
     },
     zipCode: {
@@ -820,8 +846,10 @@ justifyContent:'space-between',
         fontFamily: "Poppins-Regular",
     },
     addEvent: {
-        height: 538,
+        height: 700,
         backgroundColor: '#4d4d4d',
+        width: '100%',
+        flexDirection: 'row',
 
     },
     tinyLogo: {
@@ -883,6 +911,7 @@ justifyContent:'space-between',
         color: "#FFFF",
         alignSelf: "center",
         fontFamily: "Poppins-Regular",
+    
 
     }
     ,
