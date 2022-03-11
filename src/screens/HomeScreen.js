@@ -33,6 +33,7 @@ import { Item } from 'react-native-paper/lib/typescript/components/List/List';
 import moment from 'moment';
 import TabsCardComponent from '../components/TabsCard';
 import ReactNavigationBottomTabs from './tabscardold';
+import { scale } from "react-native-size-matters";
 // import RadioComponent from '../components/RadioButton';
 
 // Dummy content to show
@@ -89,47 +90,55 @@ const data = [
 ];
 
 
+
 const Pings = [
     {
         id: "Item 1",
         type: "unlock",
         text: "selfie challenge",
-        selected: true,
+        Description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+        selected:true,
+    },
+    {
+        id: "Item 1",
+        type: "unlock",
+        text: " Compliment your date ",
+        Description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+        selected:true,
     },
     {
         id: "Item 2",
-        type: "lock",
-        text: " Compliment your date ",
-        selected: true,
-    },
-    {
-        id: "Item 3",
         type: "unlock",
         text: " Compliment your date ",
-        selected: true,
-    },
-    {
-        id: "Item 4",
-        type: "lock",
-        text: " Compliment your date ",
+        Description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
         selected: false,
     },
     {
-        id: "Item 5",
-        type: "unlock",
-        text: " Compliment your date ",
-        selected: false,
-    },
-    {
-        id: "Item 6",
+        id: "Item 1",
         type: "lock",
         text: " Compliment your date ",
+        Description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
         selected: false,
     },
     {
-        id: "Item 7",
+        id: "Item 2",
         type: "unlock",
         text: " Compliment your date ",
+        Description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+        selected: false,
+    },
+    {
+        id: "Item 1",
+        type: "lock",
+        text: " Compliment your date ",
+        Description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+        selected: false,
+    },
+    {
+        id: "Item 2",
+        type: "unlock",
+        text: " Compliment your date ",
+        Description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
         selected: false,
     },
 
@@ -290,7 +299,7 @@ const HomeScreen = (props) => {
                         <TouchableOpacity
 
 
-                            style={v.type == "unlock" ? styles.PingUnlock : styles.PingBtn ? styles.PingLock : styles.PingBtn || v.selected == "true" ? styles.PingUnlock : styles.PingBtn}
+                            style={v.type == "unlock" && v.selected == true ? styles.PingPlayed  : styles.PingUnlock && v.type == 'lock' ? styles.PingLock : styles.PingUnlock}
                             type={Pings}
 
                         >
@@ -497,13 +506,7 @@ const HomeScreen = (props) => {
 
                         <View style={styles.addEvent}>
 
-                            <View style={styles.mealView} >
-                                <Text style={styles.choosePersonText}>  Add An Event</Text>
-                         
-                                <ReactNavigationBottomTabs nestedScrollEnabled={true}></ReactNavigationBottomTabs>      
-                           
-                              
-                            </View>
+                            
                             <View style={styles.mealView} >
                                
                                 <Text style={styles.choosePersonText}>  Add An Event</Text>
@@ -536,6 +539,13 @@ const HomeScreen = (props) => {
                                         Add Drink
                                     </Text>
                                 </LinearGradient>
+                            </View>
+                            <View style={styles.mealView} >
+                               
+
+                                <ReactNavigationBottomTabs nestedScrollEnabled={true}></ReactNavigationBottomTabs>
+
+
                             </View>
                         </View>
                     </ScrollView>
@@ -643,7 +653,7 @@ const styles = StyleSheet.create({
     mealView: {
         flex: 1,
         flexDirection: 'column',
-        width: 410,
+        width: scale(350),
     
      
 
@@ -718,13 +728,16 @@ const styles = StyleSheet.create({
 
 
     },
+   
+
     PingUnlock: {
         width: 89,
         height: 90,
         borderRadius: 12,
         margin: 15,
-        backgroundColor: "#00B712",
+        backgroundColor: "#FF2B25",
         fontFamily: "Poppins-Regular",
+
 
     },
     PingLock: {
@@ -732,7 +745,16 @@ const styles = StyleSheet.create({
         height: 90,
         borderRadius: 12,
         margin: 15,
-        backgroundColor: "grey",
+        backgroundColor: "#C5C5C5",
+        fontFamily: "Poppins-Regular",
+
+    },
+    PingPlayed: {
+        width: 89,
+        height: 90,
+        borderRadius: 12,
+        margin: 15,
+        backgroundColor: "#1AC72B",
         fontFamily: "Poppins-Regular",
 
     },
@@ -846,10 +868,11 @@ const styles = StyleSheet.create({
         fontFamily: "Poppins-Regular",
     },
     addEvent: {
-        height: 700,
+        height: scale(600),
         backgroundColor: '#4d4d4d',
         width: '100%',
         flexDirection: 'row',
+       
 
     },
     tinyLogo: {
@@ -892,7 +915,7 @@ const styles = StyleSheet.create({
     linearGradient: {
 
 
-        width: 354,
+        width: 314,
 
         borderRadius: 16,
         marginTop: 40,

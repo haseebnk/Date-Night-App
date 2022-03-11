@@ -18,6 +18,11 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import LinearGradient from 'react-native-linear-gradient';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import ModalComponent from '../components/modalQuit';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+import { types } from '@babel/core';
+import UnlockModal from '../components/unlockModal';
+
+
 
 
 
@@ -43,48 +48,58 @@ const Pings = [
         id: "Item 1",
         type: "unlock",
         text: "selfie challenge",
+        Description:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
         selected: true,
     },
     {
         id: "Item 1",
-        type: "lock",
-        text: " Compliment your date ",
+        type: "unlock",
+        text: " Truth Or Dare ",
+        Description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
         selected: true,
     },
     {
         id: "Item 2",
-        type: "unlock",
-        text: " Compliment your date ",
-        selected: true,
+        type: "lock",
+        text: "Compliment date",
+        Description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+        selected: false,
     },
     {
         id: "Item 1",
-        type: "lock",
-        text: " Compliment your date ",
+        type: "unlock",
+        text: " selfie challenge",
+        Description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
         selected: false,
     },
     {
         id: "Item 2",
         type: "unlock",
         text: " Compliment your date ",
+        Description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
         selected: false,
     },
     {
         id: "Item 1",
         type: "lock",
         text: " Compliment your date ",
+        Description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
         selected: false,
     },
     {
         id: "Item 2",
         type: "unlock",
         text: " Compliment your date ",
+        Description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
         selected: false,
     },
 
 ]
 
-const rendenPing = () => {
+const rendenPing = (props) => {
+
+
+    
     return (
         Pings.map((v, i) => {
             return (
@@ -93,8 +108,10 @@ const rendenPing = () => {
                 >
                     <TouchableOpacity
 
+                       
+                        onPress={()=> v.type == 'lock' ? console.log('sorry this is locked buy at 99.9$') : null} 
 
-                        style={v.type == "unlock" ? styles.PingUnlock : styles.PingBtn ? styles.PingLock : styles.PingBtn || v.selected == "true" ? styles.PingUnlock : styles.PingBtn}
+                        style={v.type == "unlock" && v.selected == true ? styles.PingPlayed : styles.PingUnlock && v.type == 'lock' ? styles.PingLock : styles.PingUnlock}
                         type={Pings}
 
                     >
@@ -118,6 +135,34 @@ const rendenPing = () => {
 
 }
 
+
+// const rendenText = () => {
+//     return (
+//         Pings.map((v, i) => {
+//             return (
+//                 <View style={styles.ping}
+//                     key={i}
+//                 >
+                   
+
+//                     {v.text == 'selfie challenge' ?
+//                         <Text style={styles.secondText}>{v.text}</Text>
+//                         :
+//                         <Text></Text>
+//                     }
+
+
+
+//                 </View>
+//             )
+//         })
+//     )
+
+// }
+
+
+
+
 // const renderPause = () => {
 
 //     return(
@@ -132,6 +177,23 @@ const rendenPing = () => {
 export default function DateMode(props) {
 
   
+    const [myArray, setMyArray] = useState([]);
+
+    function onlclick() {
+
+
+
+
+        let myLocalArray = []
+        myLocalArray = Pings.splice(0, 1)
+        setMyArray(myLocalArray)
+console.log(myLocalArray)
+    }
+
+
+
+
+
 
 
     const [count, setCount] = useState(30);
@@ -189,9 +251,20 @@ export default function DateMode(props) {
                     <Text style={styles.firstText}>
                         Ohhh..
                     </Text>
-
+  
                     <Text style={styles.secondText}>
-                        Truth Or Dare
+                        <View style={styles.ping}
+                          
+                        >
+                            <View style={{alignSelf:'center'}}>
+
+                            <Text style={styles.secondText}>{Pings[0].text}</Text>
+
+                            </View>
+
+
+
+                        </View>
                     </Text>
 
                     <Text style={styles.thirdText}>
@@ -202,7 +275,7 @@ export default function DateMode(props) {
                         <View style={styles.InnerContainer}>
 
                         <Text style={styles.dareText}>
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                               {Pings[0].Description}
                         </Text>
 
                         </View>
@@ -219,7 +292,7 @@ export default function DateMode(props) {
 
                 <View style={styles.BottomHeader}>
                     <TouchableOpacity onPress={() => props.navigation.navigate('faqscreen')}>
-                        <Text style={{ fontSize: 23, color: "white", alignSelf: "flex-start", margin: 20, fontFamily: "Poppins-Regular", marginLeft: 25, }}> Faq</Text>
+                        <Text style={{ fontSize: 23, color: "white", alignSelf: "flex-start", margin: 20, fontFamily: "Poppins-Regular", marginLeft: 25, top:-5,}}> Faq</Text>
                     </TouchableOpacity>
 
 
@@ -237,14 +310,21 @@ export default function DateMode(props) {
 
                     <TouchableOpacity >
 
-                        <MaterialIcons style={{ alignItems: 'center', justifyContent: 'space-between', top: 15, left: -10 }} name='play-arrow' size={hp('5%')} color="#74FF82" />
+                        <MaterialIcons style={{ alignItems: 'center', justifyContent: 'space-between', top:12, left: -10 }} name='play-arrow' size={hp('5%')} color="#74FF82" />
 
                     </TouchableOpacity>
 
-                    <TouchableOpacity >
+                    <TouchableOpacity onPress={onlclick} >
 
-                        <MaterialIcons style={{ alignItems: 'center', top: 18, left: 0 }} name='double-arrow' size={hp('4%')} color="#0379FF" />
+                       
+                        
+                        {Pings[0].type == 'lock' ? <UnlockModal
 
+                            style={{ alignItems: 'center', left: -10 ,  }} navigation={props.navigation} >
+
+                        </UnlockModal> : <MaterialIcons style={{ alignItems: 'center', top: 18, left: 0 }} name='double-arrow' size={hp('4%')} color="#0379FF" /> }
+                        
+                        
                     </TouchableOpacity>
 
                     <TouchableOpacity onPressIn={onPressIn}
@@ -254,7 +334,7 @@ export default function DateMode(props) {
 
                     </TouchableOpacity>
                 </View>
-                <Text style={{ color: 'white', fontSize: 10, bottom: 10, alignSelf: 'flex-end', marginRight: 13, }}>min</Text>
+                <Text style={{ color: 'white', fontSize: 10, bottom: 20, alignSelf: 'flex-end', marginRight: 53, }}>min</Text>
             </LinearGradient>
         </ScrollView>
     )
@@ -266,13 +346,13 @@ const styles = StyleSheet.create({
         fontSize:12.7,
         fontFamily: "Poppins-Light",
         alignSelf:'center',
-        margin:30,
+        margin:18,
         color:'#24202F',
 
     },
     InnerContainer:{
-        height: 372,
-        width: 310,
+        height: scale(312),
+        width: scale(250),
         backgroundColor:'#FFFFFF',
         borderRadius:17,
         alignSelf:'center'
@@ -282,16 +362,18 @@ const styles = StyleSheet.create({
         fontFamily: "Poppins-Regular",
         alignSelf: 'center',
         color: '#74FF82',
-        top: 30,
+        top: 35,
         marginBottom:40
 
     },
     secondText: {
-        fontSize: 40,
+        fontSize: 30,
         fontFamily: "Poppins-SemiBold",
         alignSelf: 'center',
         color: '#74FF82',
-        top: 30,
+        top: 20,
+        justifyContent:'center',
+        
 
     },
     firstText: {
@@ -306,21 +388,24 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: "white",
         alignSelf: 'center',
-        marginRight: 30,
+        marginRight: 50,
         margin: 15,
 
         fontFamily: "Poppins-Regular",
     },
     BottomHeader: {
         alignSelf: "center",
-        height: 68.7,
+        height: scale(68.7),
         backgroundColor: 'black',
-        width: 410,
+        width: scale(350),
         flexDirection: 'row',
         justifyContent: 'space-between',
         borderTopLeftRadius: 36,
         borderTopRightRadius: 36,
-        bottom: -14
+        bottom: -14,
+
+      
+       
 
 
     },
@@ -334,7 +419,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 6
     },
 
-    PingBtn: {
+    PingUnlock: {
         width: 89,
         height: 90,
         borderRadius: 12,
@@ -349,14 +434,15 @@ const styles = StyleSheet.create({
         marginTop: 50,
         alignSelf: "center",
         marginBottom: 30,
-
+        justifyContent:'center',
+        alignItems:'center'
     },
-    PingUnlock: {
+    PingPlayed: {
         width: 89,
         height: 90,
         borderRadius: 12,
         margin: 15,
-        backgroundColor: "#00B712",
+        backgroundColor: "#1AC72B",
         fontFamily: "Poppins-Regular",
 
     },
@@ -365,7 +451,7 @@ const styles = StyleSheet.create({
         height: 90,
         borderRadius: 12,
         margin: 15,
-        backgroundColor: "grey",
+        backgroundColor: "#C5C5C5",
         fontFamily: "Poppins-Regular",
 
     },
@@ -382,13 +468,14 @@ const styles = StyleSheet.create({
     ChallengeContainer: {
 
         alignSelf: 'center',
-        width: '100%',
-        height: 581,
+        width: scale(300),
+        height: scale(501),
         backgroundColor: '#363143',
         borderColor: '#00B712',
         borderWidth: 2.5,
         borderRadius: 20,
         top: 20,
+       
     },
 
     CasualModeText: {
@@ -404,7 +491,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingTop: 20,
-        paddingHorizontal: 20,
+        paddingHorizontal: 0,
         backgroundColor: '#ffff',
 
     },

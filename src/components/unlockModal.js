@@ -7,7 +7,7 @@ import LinearGradient from "react-native-linear-gradient";
 import { scale } from "react-native-size-matters";
 
 
-class ModalComponent extends Component {
+class UnlockModal extends Component {
     constructor(props) {
         super(props);
     }
@@ -23,10 +23,10 @@ class ModalComponent extends Component {
         const { modalVisible } = this.state;
         return (
             <View style={styles.centeredView}>
-                
+
                 <Modal
-                
-                   
+
+
                     animationType="slide"
                     transparent={true}
                     visible={modalVisible}
@@ -37,16 +37,16 @@ class ModalComponent extends Component {
                     hasBackdrop={true}
                 >
                     <View style={styles.centeredView}>
-                        <LinearGradient 
+                        <LinearGradient
                             start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
                             colors={['#FF7474', '#E20303']}
-                        style={styles.modalView}>
-                            <Text style={styles.modalText}>Are you sure you want to quit your date?</Text>
-                          
-                          <View style={styles.modalButtons} >
+                            style={styles.modalView}>
+                            <Text style={styles.modalText}>This Ping is currently locked. Would you like to permanently unlock it for just $0.99 ?</Text>
+
+                            <View style={styles.modalButtons} >
                                 <Pressable
                                     style={[styles.button, styles.buttonYes]}
-                                    onPress={() => this.props.navigation.navigate('home') }
+                                    onPress={() => this.props.navigation.navigate('home')}
                                 >
                                     <Text style={styles.textStyleYes}>Yes</Text>
                                 </Pressable>
@@ -57,46 +57,49 @@ class ModalComponent extends Component {
                                 >
                                     <Text style={styles.textStyleNo}>No</Text>
                                 </Pressable>
-                          </View>
-                         
-                           
+                            </View>
+
+
                         </LinearGradient>
                     </View>
                 </Modal>
                 <Pressable
-                   
+
                     onPress={() => this.setModalVisible(true)}
                 >
-                   
 
-                        <MaterialIcons style={{ alignItems: 'center', top: scale(-3), left: scale(-10) , alignSelf:'center' }} name='stop' size={hp('5%')} color="#E20303" />
 
-              
+                    {/* <MaterialIcons style={{ alignItems: 'center', top: scale(-3), left: scale(-10), alignSelf: 'center' }} name='stop' size={hp('5%')} color="#E20303" /> */}
+                    <MaterialIcons style={{ alignItems: 'center',  left: 0  , top:scale(-5)}} name='double-arrow' size={hp('4%')} color="#0379FF" />
+
                 </Pressable>
             </View>
         );
     }
 }
 
+
+
 const styles = StyleSheet.create({
-    buttonNo:{
-        backgroundColor:'white',
+    buttonNo: {
+        backgroundColor: 'white',
         margin: 20,
         width: 74,
         height: 44,
 
     },
     buttonYes: {
-        backgroundColor:null,
+        backgroundColor: null,
         margin: 20,
         width: 74,
         height: 44,
 
     },
-    modalButtons:{
-        flexDirection:'row',
-        justifyContent:'space-between',
-      
+    modalButtons: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        top:scale(-23),
+
 
     },
     centeredView: {
@@ -108,7 +111,7 @@ const styles = StyleSheet.create({
     modalView: {
         width: 310,
         height: 209,
-        
+
         // backgroundColor: "red",
         borderRadius: 20,
         padding: 35,
@@ -125,9 +128,9 @@ const styles = StyleSheet.create({
     button: {
         borderRadius: 10,
         padding: 10,
-   
+
     },
-    
+
     textStyleYes: {
         color: "white",
         fontFamily: 'Poppins-Regular',
@@ -137,18 +140,18 @@ const styles = StyleSheet.create({
     textStyleNo: {
         color: "#E20303",
         fontFamily: 'Poppins-Regular',
-        fontSize:18,
+        fontSize: 18,
         textAlign: "center",
-        
-       
+
+
     },
     modalText: {
         marginBottom: 15,
         textAlign: "center",
-        fontFamily:'Poppins-Regular',
+        fontFamily: 'Poppins-Regular',
         color: 'white',
-        fontSize:18
+        fontSize: 18
     }
 });
 
-export default ModalComponent;
+export default UnlockModal;
